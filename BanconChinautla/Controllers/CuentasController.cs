@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BanconChinautla.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BanconChinautla.Controllers
 {
+
+    [Authorize(AuthenticationSchemes = "Identity.Application")]
     public class CuentasController : Controller
     {
 
@@ -23,6 +26,8 @@ namespace BanconChinautla.Controllers
         {
             var vm = new CuentaVM();
             return View(vm);
+
+            //ajksndksad
         }
 
         // GET: Cuentas/Details/5
@@ -87,7 +92,7 @@ namespace BanconChinautla.Controllers
         }
 
         // POST: Cuentas/Delete/5
-        [HttpPost]
+        //[HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {

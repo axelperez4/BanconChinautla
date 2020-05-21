@@ -11,7 +11,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <img src="images/logo.jpg" alt="Sample Photo" style="width: 190px; height: 150px;"/>
+                <img src="~/images/logo.jpg" alt="Sample Photo" style="width: 190px; height: 150px;" />
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BancoChinautla</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -25,6 +25,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Cuentas" asp-action="Index">Cuentas</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account"
+                                   asp-action="Logout"> Logout</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

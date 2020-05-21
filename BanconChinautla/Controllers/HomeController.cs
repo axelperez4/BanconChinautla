@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BanconChinautla.Models;
 using BanconChinautla.Repository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BanconChinautla.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Identity.Application")]
     public class HomeController : Controller
     {
         private readonly IBancoRepository _repo;
@@ -18,7 +20,7 @@ namespace BanconChinautla.Controllers
         //{
         //    _repo = repo;
         //}
-
+        [Authorize(AuthenticationSchemes = "Identity.Application")]
         public IActionResult Index()
         {
             var vm = new CuentaVM();

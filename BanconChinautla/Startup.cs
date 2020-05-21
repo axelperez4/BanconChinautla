@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BanconChinautla.Repository;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +28,21 @@ namespace BanconChinautla
             //services.AddSingleton<IBancoRepository, BancoRepository>();
             services.AddControllersWithViews()
                     .AddRazorRuntimeCompilation();
+
+           services.AddAuthentication("Identity.Application")
+                .AddCookie("Identity.Application");
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(options => { options.LoginPath = "/Account/Login"; options.LogoutPath = "/Account/Login"; });
+            //services.AddMvc().AddRazorPagesOptions(options =>
+            //{
+            //    options.Conventions.AuthorizeFolder("/");
+            //    options.Conventions.AllowAnonymousToPage("/Login");
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,12 +58,15 @@ namespace BanconChinautla
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
+            
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseAuthorization();
+            
+            //app.UseMvc();
 
             app.UseEndpoints(endpoints =>
             {
